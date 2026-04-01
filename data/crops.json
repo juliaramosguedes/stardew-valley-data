@@ -4,7 +4,691 @@
     "license": "CC BY-NC-SA 3.0",
     "credit": "Stardew Valley Wiki contributors",
     "gameVersion": "1.6",
-    "generatedAt": "2026-04-01T14:33:08.626072+00:00"
+    "generatedAt": "2026-04-01T15:21:08.932681+00:00"
   },
-  "crops": []
+  "crops": [
+    {
+      "name": "Blue Jazz",
+      "season": "spring",
+      "ccBundle": null,
+      "sellPrice": 50,
+      "seedPrice": 30,
+      "growthDays": 7,
+      "regrowDays": null,
+      "source": "Pierre's, JojaMart",
+      "_calc": {
+        "estimatedHarvests28days": 3,
+        "estimatedNetProfit28days": 120,
+        "profitPerDay": 4.3
+      }
+    },
+    {
+      "name": "Carrot",
+      "season": "spring",
+      "ccBundle": null,
+      "sellPrice": 35,
+      "seedPrice": null,
+      "growthDays": 3,
+      "regrowDays": null,
+      "source": null
+    },
+    {
+      "name": "Cauliflower",
+      "season": "spring",
+      "ccBundle": null,
+      "sellPrice": 175,
+      "seedPrice": 80,
+      "growthDays": 12,
+      "regrowDays": null,
+      "source": "Pierre's, JojaMart",
+      "_calc": {
+        "estimatedHarvests28days": 2,
+        "estimatedNetProfit28days": 270,
+        "profitPerDay": 9.6
+      }
+    },
+    {
+      "name": "Coffee Bean",
+      "season": "spring",
+      "ccBundle": null,
+      "sellPrice": 15,
+      "seedPrice": 2500,
+      "growthDays": 10,
+      "regrowDays": 2,
+      "source": "Traveling Cart",
+      "_calc": {
+        "estimatedHarvests28days": 10,
+        "estimatedNetProfit28days": -2350,
+        "profitPerDay": -83.9
+      }
+    },
+    {
+      "name": "Garlic",
+      "season": "spring",
+      "ccBundle": null,
+      "sellPrice": 60,
+      "seedPrice": 40,
+      "growthDays": 4,
+      "regrowDays": null,
+      "source": "Pierre's",
+      "_calc": {
+        "estimatedHarvests28days": 5,
+        "estimatedNetProfit28days": 260,
+        "profitPerDay": 9.3
+      }
+    },
+    {
+      "name": "Green Bean",
+      "season": "spring",
+      "ccBundle": null,
+      "sellPrice": 40,
+      "seedPrice": 60,
+      "growthDays": 10,
+      "regrowDays": 3,
+      "source": "Pierre's, JojaMart",
+      "trellis": true,
+      "_calc": {
+        "estimatedHarvests28days": 7,
+        "estimatedNetProfit28days": 220,
+        "profitPerDay": 7.9
+      }
+    },
+    {
+      "name": "Kale",
+      "season": "spring",
+      "ccBundle": null,
+      "sellPrice": 110,
+      "seedPrice": 70,
+      "growthDays": 6,
+      "regrowDays": null,
+      "source": "Pierre's, JojaMart",
+      "_calc": {
+        "estimatedHarvests28days": 4,
+        "estimatedNetProfit28days": 370,
+        "profitPerDay": 13.2
+      }
+    },
+    {
+      "name": "Parsnip",
+      "season": "spring",
+      "ccBundle": null,
+      "sellPrice": 35,
+      "seedPrice": 20,
+      "growthDays": 4,
+      "regrowDays": null,
+      "source": "Pierre's, JojaMart",
+      "_calc": {
+        "estimatedHarvests28days": 5,
+        "estimatedNetProfit28days": 155,
+        "profitPerDay": 5.5
+      }
+    },
+    {
+      "name": "Potato",
+      "season": "spring",
+      "ccBundle": null,
+      "sellPrice": 80,
+      "seedPrice": 50,
+      "growthDays": 6,
+      "regrowDays": null,
+      "source": "Pierre's, JojaMart",
+      "_calc": {
+        "estimatedHarvests28days": 4,
+        "estimatedNetProfit28days": 270,
+        "profitPerDay": 9.6
+      }
+    },
+    {
+      "name": "Rhubarb",
+      "season": "spring",
+      "ccBundle": null,
+      "sellPrice": 220,
+      "seedPrice": 100,
+      "growthDays": 13,
+      "regrowDays": null,
+      "source": "Oasis",
+      "_calc": {
+        "estimatedHarvests28days": 2,
+        "estimatedNetProfit28days": 340,
+        "profitPerDay": 12.1
+      }
+    },
+    {
+      "name": "Strawberry",
+      "season": "spring",
+      "ccBundle": null,
+      "sellPrice": 120,
+      "seedPrice": 100,
+      "growthDays": 8,
+      "regrowDays": 4,
+      "source": "Egg Festival",
+      "_calc": {
+        "estimatedHarvests28days": 6,
+        "estimatedNetProfit28days": 620,
+        "profitPerDay": 22.1
+      }
+    },
+    {
+      "name": "Tulip",
+      "season": "spring",
+      "ccBundle": null,
+      "sellPrice": 30,
+      "seedPrice": 20,
+      "growthDays": 6,
+      "regrowDays": null,
+      "source": "Pierre's, JojaMart",
+      "_calc": {
+        "estimatedHarvests28days": 4,
+        "estimatedNetProfit28days": 100,
+        "profitPerDay": 3.6
+      }
+    },
+    {
+      "name": "Unmilled Rice",
+      "season": "spring",
+      "ccBundle": null,
+      "sellPrice": 30,
+      "seedPrice": 40,
+      "growthDays": 8,
+      "regrowDays": null,
+      "source": "Pierre's",
+      "_calc": {
+        "estimatedHarvests28days": 3,
+        "estimatedNetProfit28days": 50,
+        "profitPerDay": 1.8
+      }
+    },
+    {
+      "name": "Blueberry",
+      "season": "summer",
+      "ccBundle": null,
+      "sellPrice": 50,
+      "seedPrice": 80,
+      "growthDays": 13,
+      "regrowDays": 4,
+      "source": "Pierre's",
+      "_calc": {
+        "estimatedHarvests28days": 4,
+        "estimatedNetProfit28days": 120,
+        "profitPerDay": 4.3
+      }
+    },
+    {
+      "name": "Corn",
+      "season": "summer",
+      "ccBundle": null,
+      "sellPrice": 50,
+      "seedPrice": 150,
+      "growthDays": 14,
+      "regrowDays": 4,
+      "source": "Pierre's, JojaMart",
+      "_calc": {
+        "estimatedHarvests28days": 4,
+        "estimatedNetProfit28days": 50,
+        "profitPerDay": 1.8
+      }
+    },
+    {
+      "name": "Hops",
+      "season": "summer",
+      "ccBundle": null,
+      "sellPrice": 25,
+      "seedPrice": 60,
+      "growthDays": 11,
+      "regrowDays": 1,
+      "source": "Pierre's, JojaMart",
+      "trellis": true,
+      "_calc": {
+        "estimatedHarvests28days": 18,
+        "estimatedNetProfit28days": 390,
+        "profitPerDay": 13.9
+      }
+    },
+    {
+      "name": "Hot Pepper",
+      "season": "summer",
+      "ccBundle": null,
+      "sellPrice": 40,
+      "seedPrice": 40,
+      "growthDays": 5,
+      "regrowDays": 3,
+      "source": "Pierre's, JojaMart",
+      "_calc": {
+        "estimatedHarvests28days": 8,
+        "estimatedNetProfit28days": 280,
+        "profitPerDay": 10.0
+      }
+    },
+    {
+      "name": "Melon",
+      "season": "summer",
+      "ccBundle": null,
+      "sellPrice": 250,
+      "seedPrice": 80,
+      "growthDays": 12,
+      "regrowDays": null,
+      "source": "Pierre's, JojaMart",
+      "_calc": {
+        "estimatedHarvests28days": 2,
+        "estimatedNetProfit28days": 420,
+        "profitPerDay": 15.0
+      }
+    },
+    {
+      "name": "Poppy",
+      "season": "summer",
+      "ccBundle": null,
+      "sellPrice": 140,
+      "seedPrice": 100,
+      "growthDays": 7,
+      "regrowDays": null,
+      "source": "Pierre's, JojaMart",
+      "_calc": {
+        "estimatedHarvests28days": 3,
+        "estimatedNetProfit28days": 320,
+        "profitPerDay": 11.4
+      }
+    },
+    {
+      "name": "Radish",
+      "season": "summer",
+      "ccBundle": null,
+      "sellPrice": 90,
+      "seedPrice": 40,
+      "growthDays": 6,
+      "regrowDays": null,
+      "source": "Pierre's, JojaMart",
+      "_calc": {
+        "estimatedHarvests28days": 4,
+        "estimatedNetProfit28days": 320,
+        "profitPerDay": 11.4
+      }
+    },
+    {
+      "name": "Red Cabbage",
+      "season": "summer",
+      "ccBundle": null,
+      "sellPrice": 260,
+      "seedPrice": 100,
+      "growthDays": 9,
+      "regrowDays": null,
+      "source": "Pierre's",
+      "_calc": {
+        "estimatedHarvests28days": 2,
+        "estimatedNetProfit28days": 420,
+        "profitPerDay": 15.0
+      }
+    },
+    {
+      "name": "Starfruit",
+      "season": "summer",
+      "ccBundle": null,
+      "sellPrice": 750,
+      "seedPrice": 400,
+      "growthDays": 13,
+      "regrowDays": null,
+      "source": "Oasis",
+      "_calc": {
+        "estimatedHarvests28days": 2,
+        "estimatedNetProfit28days": 1100,
+        "profitPerDay": 39.3
+      }
+    },
+    {
+      "name": "Summer Spangle",
+      "season": "summer",
+      "ccBundle": null,
+      "sellPrice": 90,
+      "seedPrice": 50,
+      "growthDays": 8,
+      "regrowDays": null,
+      "source": "Pierre's, JojaMart",
+      "_calc": {
+        "estimatedHarvests28days": 3,
+        "estimatedNetProfit28days": 220,
+        "profitPerDay": 7.9
+      }
+    },
+    {
+      "name": "Summer Squash",
+      "season": "summer",
+      "ccBundle": null,
+      "sellPrice": 45,
+      "seedPrice": null,
+      "growthDays": 6,
+      "regrowDays": 3,
+      "source": null
+    },
+    {
+      "name": "Sunflower",
+      "season": "summer",
+      "ccBundle": null,
+      "sellPrice": 80,
+      "seedPrice": 200,
+      "growthDays": 8,
+      "regrowDays": null,
+      "source": "Pierre's, JojaMart",
+      "_calc": {
+        "estimatedHarvests28days": 3,
+        "estimatedNetProfit28days": 40,
+        "profitPerDay": 1.4
+      }
+    },
+    {
+      "name": "Tomato",
+      "season": "summer",
+      "ccBundle": null,
+      "sellPrice": 60,
+      "seedPrice": 50,
+      "growthDays": 11,
+      "regrowDays": 4,
+      "source": "Pierre's, JojaMart",
+      "_calc": {
+        "estimatedHarvests28days": 5,
+        "estimatedNetProfit28days": 250,
+        "profitPerDay": 8.9
+      }
+    },
+    {
+      "name": "Wheat",
+      "season": "summer",
+      "ccBundle": null,
+      "sellPrice": 25,
+      "seedPrice": 10,
+      "growthDays": 4,
+      "regrowDays": null,
+      "source": "Pierre's, JojaMart",
+      "_calc": {
+        "estimatedHarvests28days": 5,
+        "estimatedNetProfit28days": 115,
+        "profitPerDay": 4.1
+      }
+    },
+    {
+      "name": "Amaranth",
+      "season": "fall",
+      "ccBundle": null,
+      "sellPrice": 150,
+      "seedPrice": 70,
+      "growthDays": 7,
+      "regrowDays": null,
+      "source": "Pierre's, JojaMart",
+      "_calc": {
+        "estimatedHarvests28days": 3,
+        "estimatedNetProfit28days": 380,
+        "profitPerDay": 13.6
+      }
+    },
+    {
+      "name": "Artichoke",
+      "season": "fall",
+      "ccBundle": null,
+      "sellPrice": 160,
+      "seedPrice": 30,
+      "growthDays": 8,
+      "regrowDays": null,
+      "source": "Pierre's",
+      "_calc": {
+        "estimatedHarvests28days": 3,
+        "estimatedNetProfit28days": 450,
+        "profitPerDay": 16.1
+      }
+    },
+    {
+      "name": "Beet",
+      "season": "fall",
+      "ccBundle": null,
+      "sellPrice": 100,
+      "seedPrice": 20,
+      "growthDays": 6,
+      "regrowDays": null,
+      "source": "Oasis",
+      "_calc": {
+        "estimatedHarvests28days": 4,
+        "estimatedNetProfit28days": 380,
+        "profitPerDay": 13.6
+      }
+    },
+    {
+      "name": "Bok Choy",
+      "season": "fall",
+      "ccBundle": null,
+      "sellPrice": 80,
+      "seedPrice": 50,
+      "growthDays": 4,
+      "regrowDays": null,
+      "source": "Pierre's, JojaMart",
+      "_calc": {
+        "estimatedHarvests28days": 5,
+        "estimatedNetProfit28days": 350,
+        "profitPerDay": 12.5
+      }
+    },
+    {
+      "name": "Broccoli",
+      "season": "fall",
+      "ccBundle": null,
+      "sellPrice": 70,
+      "seedPrice": null,
+      "growthDays": 8,
+      "regrowDays": 4,
+      "source": null
+    },
+    {
+      "name": "Cranberries",
+      "season": "fall",
+      "ccBundle": null,
+      "sellPrice": 75,
+      "seedPrice": 240,
+      "growthDays": 7,
+      "regrowDays": 5,
+      "source": "Pierre's, JojaMart",
+      "_calc": {
+        "estimatedHarvests28days": 5,
+        "estimatedNetProfit28days": 135,
+        "profitPerDay": 4.8
+      }
+    },
+    {
+      "name": "Eggplant",
+      "season": "fall",
+      "ccBundle": null,
+      "sellPrice": 60,
+      "seedPrice": 20,
+      "growthDays": 5,
+      "regrowDays": 5,
+      "source": "Pierre's, JojaMart",
+      "_calc": {
+        "estimatedHarvests28days": 5,
+        "estimatedNetProfit28days": 280,
+        "profitPerDay": 10.0
+      }
+    },
+    {
+      "name": "Fairy Rose",
+      "season": "fall",
+      "ccBundle": null,
+      "sellPrice": 290,
+      "seedPrice": 200,
+      "growthDays": 12,
+      "regrowDays": null,
+      "source": "Pierre's, JojaMart",
+      "_calc": {
+        "estimatedHarvests28days": 2,
+        "estimatedNetProfit28days": 380,
+        "profitPerDay": 13.6
+      }
+    },
+    {
+      "name": "Grape",
+      "season": "fall",
+      "ccBundle": null,
+      "sellPrice": 80,
+      "seedPrice": 60,
+      "growthDays": 10,
+      "regrowDays": 3,
+      "source": "Pierre's, JojaMart",
+      "trellis": true,
+      "_calc": {
+        "estimatedHarvests28days": 7,
+        "estimatedNetProfit28days": 500,
+        "profitPerDay": 17.9
+      }
+    },
+    {
+      "name": "Pumpkin",
+      "season": "fall",
+      "ccBundle": null,
+      "sellPrice": 320,
+      "seedPrice": 100,
+      "growthDays": 13,
+      "regrowDays": null,
+      "source": "Pierre's, JojaMart",
+      "_calc": {
+        "estimatedHarvests28days": 2,
+        "estimatedNetProfit28days": 540,
+        "profitPerDay": 19.3
+      }
+    },
+    {
+      "name": "Yam",
+      "season": "fall",
+      "ccBundle": null,
+      "sellPrice": 160,
+      "seedPrice": 60,
+      "growthDays": 10,
+      "regrowDays": null,
+      "source": "Pierre's, JojaMart",
+      "_calc": {
+        "estimatedHarvests28days": 2,
+        "estimatedNetProfit28days": 260,
+        "profitPerDay": 9.3
+      }
+    },
+    {
+      "name": "Powdermelon",
+      "season": "winter",
+      "ccBundle": null,
+      "sellPrice": 60,
+      "seedPrice": null,
+      "growthDays": 7,
+      "regrowDays": null,
+      "source": null
+    },
+    {
+      "name": "Ancient Fruit",
+      "season": "winter",
+      "ccBundle": null,
+      "sellPrice": 550,
+      "seedPrice": null,
+      "growthDays": 28,
+      "regrowDays": 7,
+      "source": null
+    },
+    {
+      "name": "Cactus Fruit",
+      "season": "winter",
+      "ccBundle": null,
+      "sellPrice": 75,
+      "seedPrice": 150,
+      "growthDays": 12,
+      "regrowDays": 3,
+      "source": "Oasis",
+      "_calc": {
+        "estimatedHarvests28days": 6,
+        "estimatedNetProfit28days": 300,
+        "profitPerDay": 10.7
+      }
+    },
+    {
+      "name": "Fiber",
+      "season": "winter",
+      "ccBundle": null,
+      "sellPrice": null,
+      "seedPrice": 1,
+      "growthDays": 7,
+      "regrowDays": null,
+      "source": null
+    },
+    {
+      "name": "Mixed Flower Seeds",
+      "season": "winter",
+      "ccBundle": null,
+      "sellPrice": null,
+      "seedPrice": null,
+      "growthDays": null,
+      "regrowDays": null,
+      "source": null
+    },
+    {
+      "name": "Mixed Seeds",
+      "season": "winter",
+      "ccBundle": null,
+      "sellPrice": null,
+      "seedPrice": null,
+      "growthDays": null,
+      "regrowDays": null,
+      "source": null
+    },
+    {
+      "name": "Pineapple",
+      "season": "winter",
+      "ccBundle": null,
+      "sellPrice": 300,
+      "seedPrice": null,
+      "growthDays": 14,
+      "regrowDays": 7,
+      "source": null
+    },
+    {
+      "name": "Taro Root",
+      "season": "winter",
+      "ccBundle": null,
+      "sellPrice": 100,
+      "seedPrice": 10,
+      "growthDays": 10,
+      "regrowDays": null,
+      "source": null,
+      "_calc": {
+        "estimatedHarvests28days": 2,
+        "estimatedNetProfit28days": 190,
+        "profitPerDay": 6.8
+      }
+    },
+    {
+      "name": "Sweet Gem Berry",
+      "season": "winter",
+      "ccBundle": null,
+      "sellPrice": 3000,
+      "seedPrice": 1000,
+      "growthDays": 24,
+      "regrowDays": null,
+      "source": "Traveling Cart",
+      "_calc": {
+        "estimatedHarvests28days": 1,
+        "estimatedNetProfit28days": 2000,
+        "profitPerDay": 71.4
+      }
+    },
+    {
+      "name": "Tea Leaves",
+      "season": "winter",
+      "ccBundle": null,
+      "sellPrice": 50,
+      "seedPrice": null,
+      "growthDays": 20,
+      "regrowDays": 1,
+      "source": null
+    },
+    {
+      "name": "Crafting#Seeds",
+      "season": "winter",
+      "ccBundle": null,
+      "sellPrice": null,
+      "seedPrice": null,
+      "growthDays": null,
+      "regrowDays": null,
+      "source": null
+    }
+  ]
 }
