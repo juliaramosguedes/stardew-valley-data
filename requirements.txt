@@ -1,0 +1,3 @@
+jsonschema==4.23.0
+mwparserfromhell==0.6.6
+requests==2.31.0

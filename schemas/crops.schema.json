@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CropsData",
+  "description": "Stardew Valley crop data extracted from the wiki",
+  "type": "object",
+  "required": ["_meta", "crops"],
+  "additionalProperties": false,
+  "properties": {
+    "_meta": { "$ref": "#/definitions/Meta" },
+    "crops": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/Crop" }
+    }
+  },
+  "definitions": {
+    "Meta": {
+      "type": "object",
+      "required": ["source", "license", "credit", "gameVersion", "generatedAt"],
+      "additionalProperties": false,
+      "properties": {
+        "source": { "type": "string", "format": "uri" },
+        "license": { "type": "string" },
+        "credit": { "type": "string" },
+        "gameVersion": { "type": "string" },
+        "generatedAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "Season": {
+      "type": "string",
+      "enum": ["spring", "summer", "fall", "winter"]
+    },
+    "CropCalc": {
+      "type": "object",
+      "description": "Computed fields — estimated values assuming day 1 planting, no fertilizer, no profession bonuses",
+      "required": ["estimatedHarvests28days", "estimatedNetProfit28days", "profitPerDay"],
+      "additionalProperties": false,
+      "properties": {
+        "estimatedHarvests28days": { "type": "integer", "minimum": 1 },
+        "estimatedNetProfit28days": { "type": "integer" },
+        "profitPerDay": { "type": "number" }
+      }
+    },
+    "Crop": {
+      "type": "object",
+      "required": ["name", "season"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string" },
+        "season": { "$ref": "#/definitions/Season" },
+        "seedPrice": { "type": ["integer", "null"] },
+        "growthDays": { "type": ["integer", "null"] },
+        "regrowDays": {
+          "type": ["integer", "null"],
+          "description": "null means the crop does not regrow after harvest"
+        },
+        "sellPrice": { "type": ["integer", "null"] },
+        "source": { "type": ["string", "null"] },
+        "ccBundle": {
+          "type": ["string", "null"],
+          "description": "null means not required for any Community Center bundle"
+        },
+        "trellis": {
+          "type": "boolean",
+          "description": "true means the crop grows on a trellis and blocks movement"
+        },
+        "notes": { "type": ["string", "null"] },
+        "_calc": { "$ref": "#/definitions/CropCalc" }
+      }
+    }
+  }
+}

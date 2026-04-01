@@ -1,0 +1,44 @@
+name: Update Stardew Data
+
+on:
+  schedule:
+    # Toda segunda-feira às 08:00 UTC
+    - cron: "0 8 * * 1"
+  workflow_dispatch:
+    # Permite rodar manualmente pelo GitHub UI
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run scrapers
+        run: python scrapers/run_all.py
+
+      - name: Check for changes
+        id: changes
+        run: |
+          git diff --quiet data/ || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Commit updated data
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/
+          git commit -m "chore: update data from wiki $(date -u +%Y-%m-%d)"
+          git push

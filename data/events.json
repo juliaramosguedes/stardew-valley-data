@@ -1,0 +1,203 @@
+{
+  "_meta": {
+    "source": "https://stardewvalleywiki.com/Festivals",
+    "license": "CC BY-NC-SA 3.0",
+    "credit": "Stardew Valley Wiki contributors",
+    "gameVersion": "1.6",
+    "generatedAt": "2026-04-01T14:33:09.951500+00:00"
+  },
+  "festivals": [
+    {
+      "name": "Egg Festival",
+      "season": "spring",
+      "day": 13,
+      "location": "Pelican Town Square",
+      "time": "09:00–14:00",
+      "highlights": [
+        "Egg Hunt minigame (collect 9 eggs to win)",
+        "Pierre sells Strawberry Seeds for 100g each — BUY AS MANY AS POSSIBLE"
+      ],
+      "shopItems": [
+        {
+          "item": "Strawberry Seeds",
+          "price": 100,
+          "note": "Exclusive — only sold here"
+        },
+        {
+          "item": "Decorative items",
+          "price": null,
+          "note": "Cosmetic"
+        }
+      ],
+      "strategicValue": "critical",
+      "year1Notes": "Strawberry Seeds are the best Spring crop. Buy 20+ if possible."
+    },
+    {
+      "name": "Flower Dance",
+      "season": "spring",
+      "day": 24,
+      "location": "Cindersap Forest",
+      "time": "09:00–14:00",
+      "highlights": [
+        "Dance with a bachelor/bachelorette (requires 4+ hearts)",
+        "Pierre and Sandy sell seeds and furniture"
+      ],
+      "shopItems": [
+        {
+          "item": "Various seeds",
+          "price": null,
+          "note": "Check Pierre's stock"
+        }
+      ],
+      "strategicValue": "low",
+      "year1Notes": "Good for NPC relationship building. No critical items."
+    },
+    {
+      "name": "Luau",
+      "season": "summer",
+      "day": 11,
+      "location": "Beach",
+      "time": "09:00–14:00",
+      "highlights": [
+        "Add an item to the communal potluck soup",
+        "Governor rates the soup — Gold/Iridium quality item = +friendship with all NPCs"
+      ],
+      "shopItems": [],
+      "strategicValue": "medium",
+      "year1Notes": "Bring a Gold or Iridium quality crop to boost all NPC friendships at once."
+    },
+    {
+      "name": "Dance of the Moonlight Jellies",
+      "season": "summer",
+      "day": 28,
+      "location": "Beach",
+      "time": "22:00–00:00",
+      "highlights": [
+        "Passive event — watch jellyfish parade",
+        "All NPCs present — good for talking to multiple people"
+      ],
+      "shopItems": [],
+      "strategicValue": "low",
+      "year1Notes": "No economic impact. Use for NPC conversations."
+    },
+    {
+      "name": "Stardew Valley Fair",
+      "season": "fall",
+      "day": 16,
+      "location": "Pelican Town Square",
+      "time": "09:00–15:00",
+      "highlights": [
+        "Grange Display: exhibit 9 items to earn Star Tokens",
+        "Minigames: fishing, spinning wheel, smashing",
+        "Star Token shop with rare items"
+      ],
+      "shopItems": [
+        {
+          "item": "Rarecrow #1",
+          "price": 800,
+          "note": "Part of Rarecrow collection"
+        },
+        {
+          "item": "Stardrop",
+          "price": 2000,
+          "note": "Permanent max energy increase"
+        },
+        {
+          "item": "Decorative Furnishings",
+          "price": null,
+          "note": "Various"
+        }
+      ],
+      "strategicValue": "high",
+      "year1Notes": "Buy the Stardrop (2000 tokens) — it permanently increases max energy. Win tokens by displaying high-quality items in the Grange."
+    },
+    {
+      "name": "Spirit's Eve",
+      "season": "fall",
+      "day": 27,
+      "location": "Pelican Town Square",
+      "time": "22:00–23:30",
+      "highlights": [
+        "Haunted maze — navigate to the center for a reward",
+        "Golden Pumpkin in the center of the maze",
+        "Pierre sells some items"
+      ],
+      "shopItems": [
+        {
+          "item": "Jack-O-Lantern",
+          "price": 2000,
+          "note": "Seasonal decoration"
+        },
+        {
+          "item": "Rarecrow #2",
+          "price": 5000,
+          "note": "Part of Rarecrow collection"
+        }
+      ],
+      "strategicValue": "medium",
+      "year1Notes": "Complete the maze to get the Golden Pumpkin (2500g sell price, or gift to NPCs)."
+    },
+    {
+      "name": "Festival of Ice",
+      "season": "winter",
+      "day": 8,
+      "location": "Cindersap Forest",
+      "time": "09:00–14:00",
+      "highlights": [
+        "Ice fishing contest",
+        "All NPCs present — efficient for conversations"
+      ],
+      "shopItems": [],
+      "strategicValue": "low",
+      "year1Notes": "Talk to all NPCs in one place. No critical items."
+    },
+    {
+      "name": "Night Market",
+      "season": "winter",
+      "day": 15,
+      "dayEnd": 17,
+      "location": "Beach",
+      "time": "17:00–02:00",
+      "highlights": [
+        "3-night event (days 15, 16, 17)",
+        "Rare items for sale including Ancient Seeds",
+        "Magic Shop Boat: fish rare species unavailable elsewhere",
+        "Mermaid Show, Skeleton Ship, rotating vendors"
+      ],
+      "shopItems": [
+        {
+          "item": "Ancient Seeds",
+          "price": 100,
+          "note": "Rare — plant in Greenhouse"
+        },
+        {
+          "item": "Magic Cowboy Hat",
+          "price": 333,
+          "note": "Cosmetic"
+        },
+        {
+          "item": "Rarecrow #7",
+          "price": 5000,
+          "note": "Part of Rarecrow collection"
+        }
+      ],
+      "strategicValue": "high",
+      "year1Notes": "Buy Ancient Seeds if available — plant in Greenhouse for year-round profit. Fish from the Magic Boat for rare catches."
+    },
+    {
+      "name": "Feast of the Winter Star",
+      "season": "winter",
+      "day": 25,
+      "location": "Pelican Town Square",
+      "time": "09:00–14:00",
+      "highlights": [
+        "Secret Santa gift exchange — you give and receive",
+        "Your gift recipient is randomized",
+        "Bring a high-quality item (Gold+ crop or artisan good)"
+      ],
+      "shopItems": [],
+      "strategicValue": "medium",
+      "year1Notes": "Give a Gold quality item to whoever you're assigned. You receive a gift in return — usually something valuable."
+    }
+  ]
+}

@@ -1,0 +1,398 @@
+"""
+community_center.py — extrai dados dos bundles do Centro Comunitário
+
+Fonte: https://stardewvalleywiki.com/Community_Center_Bundles
+"""
+
+import re
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent))
+from base import fetch_wikitext, meta, strip_wikilink, strip_markup, validate_and_save, CCRoom, Bundle, BundleItem, CCStats
+
+WIKI_PAGE = "Community_Center_Bundles"
+
+# Estrutura dos bundles com dados validados manualmente contra a wiki
+# Fonte: https://stardewvalleywiki.com/Community_Center_Bundles
+BUNDLES = [
+    {
+        "room": "Pantry",
+        "roomReward": "Greenhouse",
+        "roomRewardNote": "The most important reward — allows year-round farming",
+        "bundles": [
+            {
+                "name": "Spring Crops Bundle",
+                "reward": "Speed-Gro ×30",
+                "items": [
+                    {"item": "Parsnip", "quantity": 1, "quality": "normal", "season": "spring"},
+                    {"item": "Green Bean", "quantity": 1, "quality": "normal", "season": "spring"},
+                    {"item": "Cauliflower", "quantity": 1, "quality": "normal", "season": "spring"},
+                    {"item": "Potato", "quantity": 1, "quality": "normal", "season": "spring"},
+                ],
+                "year1Strategy": "Plant all four crops in Spring Year 1. Keep 1 of each before selling.",
+            },
+            {
+                "name": "Summer Crops Bundle",
+                "reward": "Quality Sprinkler ×1",
+                "items": [
+                    {"item": "Tomato", "quantity": 1, "quality": "normal", "season": "summer"},
+                    {"item": "Hot Pepper", "quantity": 1, "quality": "normal", "season": "summer"},
+                    {"item": "Blueberry", "quantity": 1, "quality": "normal", "season": "summer"},
+                    {"item": "Melon", "quantity": 1, "quality": "normal", "season": "summer"},
+                ],
+                "year1Strategy": "All available from Pierre in Summer. Keep 1 of each.",
+            },
+            {
+                "name": "Fall Crops Bundle",
+                "reward": "Bee House ×3",
+                "items": [
+                    {"item": "Corn", "quantity": 1, "quality": "normal", "season": "fall"},
+                    {"item": "Eggplant", "quantity": 1, "quality": "normal", "season": "fall"},
+                    {"item": "Pumpkin", "quantity": 1, "quality": "normal", "season": "fall"},
+                    {"item": "Yam", "quantity": 1, "quality": "normal", "season": "fall"},
+                ],
+                "year1Strategy": "Corn grows in Summer AND Fall — buy in Summer. Keep 1 Yam (zero profit crop).",
+            },
+            {
+                "name": "Quality Crops Bundle",
+                "reward": "Gold ×350",
+                "items": [
+                    {"item": "Parsnip", "quantity": 5, "quality": "gold", "season": "spring"},
+                    {"item": "Melon", "quantity": 5, "quality": "gold", "season": "summer"},
+                    {"item": "Pumpkin", "quantity": 5, "quality": "gold", "season": "fall"},
+                    {"item": "Corn", "quantity": 5, "quality": "gold", "season": "fall"},
+                ],
+                "year1Strategy": "Use Quality Fertilizer on these crops. Farming level 5+ helps a lot.",
+            },
+            {
+                "name": "Animal Bundle",
+                "reward": "Milk Pail",
+                "items": [
+                    {"item": "Large Milk", "quantity": 1, "quality": "normal", "source": "Cow (high hearts)"},
+                    {"item": "Large Egg", "quantity": 1, "quality": "normal", "source": "Chicken (high hearts)"},
+                    {"item": "Large Goat Milk", "quantity": 1, "quality": "normal", "source": "Goat"},
+                    {"item": "Wool", "quantity": 1, "quality": "normal", "source": "Sheep"},
+                    {"item": "Duck Egg", "quantity": 1, "quality": "normal", "source": "Duck"},
+                ],
+                "year1Strategy": "Large Milk and Large Egg possible in Year 1 with happy animals. Goat, Sheep, Duck require Big Barn/Coop — likely Year 2.",
+            },
+            {
+                "name": "Artisan Bundle",
+                "reward": "Keg ×1",
+                "items": [
+                    {"item": "Truffle Oil", "quantity": 1, "quality": "normal", "source": "Truffle + Oil Maker"},
+                    {"item": "Cloth", "quantity": 1, "quality": "normal", "source": "Wool + Loom"},
+                    {"item": "Goat Cheese", "quantity": 1, "quality": "normal", "source": "Goat Milk + Cheese Press"},
+                    {"item": "Cheese", "quantity": 1, "quality": "normal", "source": "Milk + Cheese Press"},
+                    {"item": "Honey", "quantity": 1, "quality": "normal", "source": "Bee House"},
+                    {"item": "Jelly", "quantity": 1, "quality": "normal", "source": "Any fruit + Preserves Jar"},
+                    {"item": "Apple", "quantity": 1, "quality": "normal", "source": "Apple Tree (Fall)"},
+                    {"item": "Apricot", "quantity": 1, "quality": "normal", "source": "Apricot Tree (Spring)"},
+                    {"item": "Orange", "quantity": 1, "quality": "normal", "source": "Orange Tree (Summer)"},
+                    {"item": "Peach", "quantity": 1, "quality": "normal", "source": "Peach Tree (Summer)"},
+                    {"item": "Pomegranate", "quantity": 1, "quality": "normal", "source": "Pomegranate Tree (Fall)"},
+                    {"item": "Cherry", "quantity": 1, "quality": "normal", "source": "Cherry Tree (Spring)"},
+                ],
+                "year1Strategy": "Honey from Bee House is easiest. Fruit trees take 28 days to mature — plant in Year 1 for Year 2 harvest.",
+                "note": "Only 6 of 12 items needed",
+            },
+        ],
+    },
+    {
+        "room": "Crafts Room",
+        "roomReward": "Bridge repair (access to Quarry)",
+        "bundles": [
+            {
+                "name": "Spring Foraging Bundle",
+                "reward": "Spring Seeds ×30",
+                "items": [
+                    {"item": "Daffodil", "quantity": 1, "quality": "normal", "source": "Forage Spring"},
+                    {"item": "Dandelion", "quantity": 1, "quality": "normal", "source": "Forage Spring"},
+                    {"item": "Leek", "quantity": 1, "quality": "normal", "source": "Forage Spring"},
+                    {"item": "Wild Horseradish", "quantity": 1, "quality": "normal", "source": "Forage Spring"},
+                ],
+                "year1Strategy": "Forage in Spring — all found on ground in Pelican Town and Cindersap Forest.",
+            },
+            {
+                "name": "Summer Foraging Bundle",
+                "reward": "Summer Seeds ×30",
+                "items": [
+                    {"item": "Grape", "quantity": 1, "quality": "normal", "source": "Forage Summer or Fall crop"},
+                    {"item": "Fiddlehead Fern", "quantity": 1, "quality": "normal", "source": "Forage Summer (Secret Forest)"},
+                    {"item": "Red Mushroom", "quantity": 1, "quality": "normal", "source": "Forage Summer/Fall"},
+                    {"item": "Spice Berry", "quantity": 1, "quality": "normal", "source": "Forage Summer"},
+                ],
+                "year1Strategy": "Fiddlehead Fern only in Secret Forest (west of farm). Red Mushroom from farm cave (mushroom option) or forage.",
+            },
+            {
+                "name": "Fall Foraging Bundle",
+                "reward": "Fall Seeds ×30",
+                "items": [
+                    {"item": "Common Mushroom", "quantity": 1, "quality": "normal", "source": "Forage Fall"},
+                    {"item": "Wild Plum", "quantity": 1, "quality": "normal", "source": "Forage Fall"},
+                    {"item": "Hazelnut", "quantity": 1, "quality": "normal", "source": "Forage Fall"},
+                    {"item": "Blackberry", "quantity": 1, "quality": "normal", "source": "Forage Fall"},
+                ],
+                "year1Strategy": "All found foraging in Fall. Common Mushroom and Blackberry appear frequently.",
+            },
+            {
+                "name": "Winter Foraging Bundle",
+                "reward": "Winter Seeds ×30",
+                "items": [
+                    {"item": "Winter Root", "quantity": 1, "quality": "normal", "source": "Forage Winter (tilling soil)"},
+                    {"item": "Crystal Fruit", "quantity": 1, "quality": "normal", "source": "Forage Winter"},
+                    {"item": "Snow Yam", "quantity": 1, "quality": "normal", "source": "Forage Winter (tilling soil)"},
+                    {"item": "Holly", "quantity": 1, "quality": "normal", "source": "Forage Winter"},
+                ],
+                "year1Strategy": "Winter Root and Snow Yam found by tilling snow in Winter. Crystal Fruit and Holly appear on ground.",
+            },
+            {
+                "name": "Construction Bundle",
+                "reward": "Charcoal Kiln",
+                "items": [
+                    {"item": "Wood", "quantity": 99, "quality": "normal", "source": "Chop trees"},
+                    {"item": "Stone", "quantity": 99, "quality": "normal", "source": "Break rocks"},
+                    {"item": "Hardwood", "quantity": 10, "quality": "normal", "source": "Large stumps (axe level 2+)"},
+                ],
+                "year1Strategy": "Wood and Stone accumulate naturally. Hardwood from stumps in Secret Forest (resets daily — 6 stumps = 12 hardwood/day).",
+            },
+            {
+                "name": "Exotic Foraging Bundle",
+                "reward": "Autumn's Bounty ×5",
+                "items": [
+                    {"item": "Coconut", "quantity": 1, "quality": "normal", "source": "Desert or Forage"},
+                    {"item": "Cactus Fruit", "quantity": 1, "quality": "normal", "source": "Desert"},
+                    {"item": "Cave Carrot", "quantity": 1, "quality": "normal", "source": "Mine level 1–10"},
+                    {"item": "Red Mushroom", "quantity": 1, "quality": "normal", "source": "Forage Summer/Fall"},
+                    {"item": "Purple Mushroom", "quantity": 1, "quality": "normal", "source": "Mine level 81–119"},
+                    {"item": "Maple Syrup", "quantity": 1, "quality": "normal", "source": "Maple Tree + Tapper"},
+                    {"item": "Oak Resin", "quantity": 1, "quality": "normal", "source": "Oak Tree + Tapper"},
+                    {"item": "Pine Tar", "quantity": 1, "quality": "normal", "source": "Pine Tree + Tapper"},
+                    {"item": "Morel", "quantity": 1, "quality": "normal", "source": "Secret Forest (Spring)"},
+                ],
+                "year1Strategy": "Coconut and Cactus Fruit require Desert (unlock bus). Tappers on trees take 7–9 days. Only 5 of 9 needed.",
+                "note": "Only 5 of 9 items needed",
+            },
+        ],
+    },
+    {
+        "room": "Fish Tank",
+        "roomReward": "Glittering Boulder removal (copper ore in river)",
+        "bundles": [
+            {
+                "name": "River Fish Bundle",
+                "reward": "Bait ×30",
+                "items": [
+                    {"item": "Sunfish", "quantity": 1, "quality": "normal", "season": "spring/summer", "location": "River"},
+                    {"item": "Catfish", "quantity": 1, "quality": "normal", "season": "spring/fall", "location": "River (rain)"},
+                    {"item": "Shad", "quantity": 1, "quality": "normal", "season": "spring-fall", "location": "River (rain)"},
+                    {"item": "Tiger Trout", "quantity": 1, "quality": "normal", "season": "fall/winter", "location": "River"},
+                ],
+                "year1Strategy": "Catfish only on rainy days in Spring. Tiger Trout is rare — keep fishing.",
+            },
+            {
+                "name": "Lake Fish Bundle",
+                "reward": "Dressed Spinner",
+                "items": [
+                    {"item": "Largemouth Bass", "quantity": 1, "quality": "normal", "season": "all", "location": "Mountain Lake"},
+                    {"item": "Carp", "quantity": 1, "quality": "normal", "season": "all", "location": "Mountain Lake / Sewers"},
+                    {"item": "Bullhead", "quantity": 1, "quality": "normal", "season": "all", "location": "Mountain Lake"},
+                    {"item": "Sturgeon", "quantity": 1, "quality": "normal", "season": "summer/winter", "location": "Mountain Lake"},
+                ],
+                "year1Strategy": "All found in Mountain Lake. Sturgeon only Summer and Winter.",
+            },
+            {
+                "name": "Ocean Fish Bundle",
+                "reward": "Warp Totem: Beach ×5",
+                "items": [
+                    {"item": "Sardine", "quantity": 1, "quality": "normal", "season": "spring/fall/winter", "location": "Ocean"},
+                    {"item": "Tuna", "quantity": 1, "quality": "normal", "season": "summer/winter", "location": "Ocean"},
+                    {"item": "Red Snapper", "quantity": 1, "quality": "normal", "season": "summer/fall", "location": "Ocean"},
+                    {"item": "Tilapia", "quantity": 1, "quality": "normal", "season": "summer/fall", "location": "Ocean"},
+                ],
+                "year1Strategy": "All common ocean fish. Fish at the beach — easiest bundle.",
+            },
+            {
+                "name": "Night Fishing Bundle",
+                "reward": "Small Glow Ring",
+                "items": [
+                    {"item": "Walleye", "quantity": 1, "quality": "normal", "season": "fall", "location": "River (night)"},
+                    {"item": "Bream", "quantity": 1, "quality": "normal", "season": "all", "location": "River (night)"},
+                    {"item": "Eel", "quantity": 1, "quality": "normal", "season": "spring/fall", "location": "Ocean (night, rain)"},
+                ],
+                "year1Strategy": "Fish at night (after 18:00). Eel needs rain + night in Spring.",
+            },
+            {
+                "name": "Specialty Fish Bundle",
+                "reward": "Dish o' the Sea ×5",
+                "items": [
+                    {"item": "Pufferfish", "quantity": 1, "quality": "normal", "season": "summer", "location": "Ocean (day)"},
+                    {"item": "Ghostfish", "quantity": 1, "quality": "normal", "season": "all", "location": "Mine (level 20/60)"},
+                    {"item": "Sandfish", "quantity": 1, "quality": "normal", "season": "all", "location": "Desert"},
+                    {"item": "Woodskip", "quantity": 1, "quality": "normal", "season": "all", "location": "Secret Forest"},
+                ],
+                "year1Strategy": "Sandfish requires Desert. Woodskip from Secret Forest pond. Ghostfish in the Mine.",
+            },
+            {
+                "name": "Crab Pot Bundle",
+                "reward": "Crab Pot ×3",
+                "items": [
+                    {"item": "Lobster", "quantity": 1, "quality": "normal", "source": "Crab Pot (ocean)"},
+                    {"item": "Crayfish", "quantity": 1, "quality": "normal", "source": "Crab Pot (freshwater)"},
+                    {"item": "Crab", "quantity": 1, "quality": "normal", "source": "Crab Pot (ocean)"},
+                    {"item": "Cockle", "quantity": 1, "quality": "normal", "source": "Crab Pot (ocean)"},
+                    {"item": "Mussel", "quantity": 1, "quality": "normal", "source": "Crab Pot (ocean)"},
+                    {"item": "Shrimp", "quantity": 1, "quality": "normal", "source": "Crab Pot (ocean)"},
+                    {"item": "Snail", "quantity": 1, "quality": "normal", "source": "Crab Pot (freshwater)"},
+                    {"item": "Periwinkle", "quantity": 1, "quality": "normal", "source": "Crab Pot (freshwater)"},
+                    {"item": "Clam", "quantity": 1, "quality": "normal", "source": "Beach forage"},
+                    {"item": "Oyster", "quantity": 1, "quality": "normal", "source": "Beach forage"},
+                ],
+                "year1Strategy": "Place Crab Pots in ocean and river. Unlock at Fishing level 3. Leave overnight and collect daily.",
+                "note": "All 10 items needed",
+            },
+        ],
+    },
+    {
+        "room": "Boiler Room",
+        "roomReward": "Minecarts repaired (fast travel between key locations)",
+        "bundles": [
+            {
+                "name": "Blacksmith's Bundle",
+                "reward": "Furnace",
+                "items": [
+                    {"item": "Copper Bar", "quantity": 1, "quality": "normal", "source": "Mine level 1–39 + Furnace"},
+                    {"item": "Iron Bar", "quantity": 1, "quality": "normal", "source": "Mine level 40–79 + Furnace"},
+                    {"item": "Gold Bar", "quantity": 1, "quality": "normal", "source": "Mine level 80–119 + Furnace"},
+                ],
+                "year1Strategy": "Copper Bar in Spring, Iron in Summer, Gold by Fall if mining consistently.",
+            },
+            {
+                "name": "Geologist's Bundle",
+                "reward": "Omni Geode ×5",
+                "items": [
+                    {"item": "Quartz", "quantity": 1, "quality": "normal", "source": "Mine level 1–39"},
+                    {"item": "Earth Crystal", "quantity": 1, "quality": "normal", "source": "Mine level 1–39"},
+                    {"item": "Frozen Tear", "quantity": 1, "quality": "normal", "source": "Mine level 40–79"},
+                    {"item": "Fire Quartz", "quantity": 1, "quality": "normal", "source": "Mine level 80–119"},
+                ],
+                "year1Strategy": "All found in the mine at different depth ranges. Keep 1 of each before selling.",
+            },
+            {
+                "name": "Adventurer's Bundle",
+                "reward": "Small Magnet Ring",
+                "items": [
+                    {"item": "Slime ×99", "quantity": 99, "quality": "normal", "source": "Slimes in Mine"},
+                    {"item": "Bat Wing ×10", "quantity": 10, "quality": "normal", "source": "Bats in Mine level 41+"},
+                    {"item": "Solar Essence", "quantity": 1, "quality": "normal", "source": "Ghosts/Metal Heads Mine 80+"},
+                    {"item": "Void Essence", "quantity": 1, "quality": "normal", "source": "Shadow Brutes/Shaman Mine 80+"},
+                ],
+                "year1Strategy": "Slimes accumulate naturally. Bat Wings from bats in level 41+. Solar/Void Essence from enemies in level 80+.",
+            },
+        ],
+    },
+    {
+        "room": "Vault",
+        "roomReward": "Bus to Calico Desert (Skull Cavern access + Sandy's Shop)",
+        "bundles": [
+            {"name": "2,500g Bundle", "reward": "Chocolate Cake ×3", "items": [{"item": "Gold", "quantity": 2500}], "year1Strategy": "Pay with any money. Easy by Summer Year 1."},
+            {"name": "5,000g Bundle", "reward": "Quality Sprinkler ×1", "items": [{"item": "Gold", "quantity": 5000}], "year1Strategy": "Pay with any money. Achievable Summer Year 1."},
+            {"name": "10,000g Bundle", "reward": "Lightning Rod ×1", "items": [{"item": "Gold", "quantity": 10000}], "year1Strategy": "Achievable by Fall Year 1 with good crops."},
+            {"name": "25,000g Bundle", "reward": "Crystalarium ×1", "items": [{"item": "Gold", "quantity": 25000}], "year1Strategy": "Harder — focus on high-value crops + artisan goods."},
+        ],
+        "note": "Total gold needed: 42,500g. Completing unlocks bus to Desert.",
+    },
+    {
+        "room": "Bulletin Board",
+        "roomReward": "Friendship +2 hearts with all NPCs",
+        "bundles": [
+            {
+                "name": "Chef's Bundle",
+                "reward": "Maple Syrup",
+                "items": [
+                    {"item": "Maple Syrup", "quantity": 1, "source": "Maple Tree + Tapper"},
+                    {"item": "Fiddlehead Fern", "quantity": 1, "source": "Secret Forest Summer"},
+                    {"item": "Truffle", "quantity": 1, "source": "Pig (Big Barn)"},
+                    {"item": "Poppy", "quantity": 1, "source": "Grow in Summer"},
+                    {"item": "Maki Roll", "quantity": 1, "source": "Cook (Seaweed/Fish + Rice)"},
+                    {"item": "Fried Egg", "quantity": 1, "source": "Cook (Egg)"},
+                ],
+                "note": "Only 6 of 6 items (all required)",
+            },
+            {
+                "name": "Dye Bundle",
+                "reward": "Cloth ×1",
+                "items": [
+                    {"item": "Red Mushroom", "quantity": 1, "source": "Mine/Farm Cave"},
+                    {"item": "Sea Urchin", "quantity": 1, "source": "Beach Summer"},
+                    {"item": "Sunflower", "quantity": 1, "source": "Grow Summer/Fall"},
+                    {"item": "Duck Feather", "quantity": 1, "source": "Duck (Big Coop)"},
+                    {"item": "Aquamarine", "quantity": 1, "source": "Mine level 40–79"},
+                    {"item": "Red Cabbage", "quantity": 1, "source": "Pierre Year 2+ Summer"},
+                ],
+                "note": "Red Cabbage only available Year 2+ — delays this bundle",
+                "year1Strategy": "Cannot complete in Year 1 — Red Cabbage only sold from Year 2.",
+            },
+            {
+                "name": "Field Research Bundle",
+                "reward": "Recycling Machine ×1",
+                "items": [
+                    {"item": "Purple Mushroom", "quantity": 1, "source": "Mine level 81+"},
+                    {"item": "Nautilus Shell", "quantity": 1, "source": "Beach forage Winter"},
+                    {"item": "Chub", "quantity": 1, "source": "River/Mountain Lake"},
+                    {"item": "Frozen Geode", "quantity": 1, "source": "Mine level 40–79"},
+                ],
+            },
+            {
+                "name": "Fodder Bundle",
+                "reward": "Heater ×1",
+                "items": [
+                    {"item": "Wheat", "quantity": 10, "source": "Grow Summer/Fall"},
+                    {"item": "Hay", "quantity": 10, "source": "Cut grass with Scythe"},
+                    {"item": "Apple", "quantity": 1, "source": "Apple Tree Fall"},
+                ],
+            },
+            {
+                "name": "Enchanter's Bundle",
+                "reward": "Auto-Petter ×1",
+                "items": [
+                    {"item": "Oak Resin", "quantity": 1, "source": "Oak Tree + Tapper"},
+                    {"item": "Wine", "quantity": 1, "source": "Any fruit + Keg"},
+                    {"item": "Rabbit's Foot", "quantity": 1, "source": "Rabbit (Big Coop)"},
+                    {"item": "Pomegranate", "quantity": 1, "source": "Pomegranate Tree Fall"},
+                ],
+                "year1Strategy": "Wine from any fruit in a Keg. Rabbit requires Big Coop — likely Year 2. Auto-Petter reward is excellent for animal farming.",
+            },
+        ],
+    },
+]
+
+
+def scrape() -> dict:
+    print(f"[community_center] Usando dados estruturados validados manualmente")
+    print(f"  Fonte: https://stardewvalleywiki.com/{WIKI_PAGE}")
+
+    # Estatísticas
+    total_bundles = sum(len(room.get("bundles", [])) for room in BUNDLES)
+    total_items = sum(
+        len(bundle.get("items", []))
+        for room in BUNDLES
+        for bundle in room.get("bundles", [])
+    )
+
+    return {
+        "_meta": meta(WIKI_PAGE),
+        "rooms": BUNDLES,
+        "_stats": {
+            "totalRooms": len(BUNDLES),
+            "totalBundles": total_bundles,
+            "totalItems": total_items,
+        },
+    }
+
+
+if __name__ == "__main__":
+    data = scrape()
+    validate_and_save("community_center.json", data, "community_center")
+    print(f"\nTotal: {len(data['rooms'])} salas, {data['_stats']['totalBundles']} bundles")

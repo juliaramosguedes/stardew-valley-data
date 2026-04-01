@@ -1,0 +1,75 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "EventsData",
+  "description": "Stardew Valley festival and event data extracted from the wiki",
+  "type": "object",
+  "required": ["_meta", "festivals"],
+  "additionalProperties": false,
+  "properties": {
+    "_meta": { "$ref": "#/definitions/Meta" },
+    "festivals": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/Festival" }
+    }
+  },
+  "definitions": {
+    "Meta": {
+      "type": "object",
+      "required": ["source", "license", "credit", "gameVersion", "generatedAt"],
+      "additionalProperties": false,
+      "properties": {
+        "source": { "type": "string", "format": "uri" },
+        "license": { "type": "string" },
+        "credit": { "type": "string" },
+        "gameVersion": { "type": "string" },
+        "generatedAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "Season": {
+      "type": "string",
+      "enum": ["spring", "summer", "fall", "winter"]
+    },
+    "StrategicValue": {
+      "type": "string",
+      "enum": ["critical", "high", "medium", "low"]
+    },
+    "ShopItem": {
+      "type": "object",
+      "required": ["item", "price", "note"],
+      "additionalProperties": false,
+      "properties": {
+        "item": { "type": "string" },
+        "price": { "type": ["integer", "null"] },
+        "note": { "type": "string" }
+      }
+    },
+    "Festival": {
+      "type": "object",
+      "required": ["name", "season", "day", "location", "time", "highlights", "shopItems", "strategicValue", "year1Notes"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string" },
+        "season": { "$ref": "#/definitions/Season" },
+        "day": { "type": "integer", "minimum": 1, "maximum": 28 },
+        "dayEnd": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 28,
+          "description": "Only present for multi-day events like Night Market"
+        },
+        "location": { "type": "string" },
+        "time": { "type": "string" },
+        "highlights": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "shopItems": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/ShopItem" }
+        },
+        "strategicValue": { "$ref": "#/definitions/StrategicValue" },
+        "year1Notes": { "type": "string" }
+      }
+    }
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CommunityCenterData",
+  "description": "Stardew Valley Community Center bundle data extracted from the wiki",
+  "type": "object",
+  "required": ["_meta", "rooms", "_stats"],
+  "additionalProperties": false,
+  "properties": {
+    "_meta": { "$ref": "#/definitions/Meta" },
+    "rooms": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/Room" }
+    },
+    "_stats": { "$ref": "#/definitions/Stats" }
+  },
+  "definitions": {
+    "Meta": {
+      "type": "object",
+      "required": ["source", "license", "credit", "gameVersion", "generatedAt"],
+      "additionalProperties": false,
+      "properties": {
+        "source": { "type": "string", "format": "uri" },
+        "license": { "type": "string" },
+        "credit": { "type": "string" },
+        "gameVersion": { "type": "string" },
+        "generatedAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "Quality": {
+      "type": "string",
+      "enum": ["normal", "silver", "gold", "iridium"]
+    },
+    "BundleItem": {
+      "type": "object",
+      "required": ["item", "quantity"],
+      "additionalProperties": false,
+      "properties": {
+        "item": { "type": "string" },
+        "quantity": { "type": "integer", "minimum": 1 },
+        "quality": { "$ref": "#/definitions/Quality" },
+        "season": { "type": "string" },
+        "source": { "type": "string" },
+        "location": { "type": "string" }
+      }
+    },
+    "Bundle": {
+      "type": "object",
+      "required": ["name", "reward", "items"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string" },
+        "reward": { "type": "string" },
+        "items": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/BundleItem" }
+        },
+        "year1Strategy": { "type": "string" },
+        "note": { "type": "string" }
+      }
+    },
+    "Room": {
+      "type": "object",
+      "required": ["room", "roomReward", "bundles"],
+      "additionalProperties": false,
+      "properties": {
+        "room": { "type": "string" },
+        "roomReward": { "type": "string" },
+        "roomRewardNote": { "type": "string" },
+        "bundles": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/Bundle" }
+        },
+        "note": { "type": "string" }
+      }
+    },
+    "Stats": {
+      "type": "object",
+      "required": ["totalRooms", "totalBundles", "totalItems"],
+      "additionalProperties": false,
+      "properties": {
+        "totalRooms": { "type": "integer" },
+        "totalBundles": { "type": "integer" },
+        "totalItems": { "type": "integer" }
+      }
+    }
+  }
+}
